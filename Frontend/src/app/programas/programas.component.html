@@ -1,0 +1,99 @@
+<div class="card-container">
+  <div class="header-actions programas-header">
+    <div class="header-copy">
+      <div class="header-title-row">
+        <span class="section-badge">Gestión de Programas</span>
+        <button class="btn btn-secondary btn-back" (click)="goToMenu()" title="Volver al menú">
+          🔙
+        </button>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="nuevo()" *ngIf="userLevel === 1">
+      <span>+</span> Nuevo Programa
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of programas" [class.row-disabled]="p.anu_prog === 'X'">
+          <td>{{ p.id_program }}</td>
+          <td class="text-truncate-cell" title="{{ p.nombre_program || '-' }}"><div class="cell-primary">{{ p.nombre_program || '-' }}</div></td>
+          <td class="text-center actions-cell">
+            <span class="status-badge" [class.status-inactive]="p.anu_prog === 'X'">
+              {{ p.anu_prog === 'X' ? 'Anulado' : 'Activo' }}
+            </span>
+            <div class="row-actions">
+              <button class="btn-icon edit" (click)="editar(p)" title="Editar" [disabled]="p.anu_prog === 'X'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+              </button>
+              <button class="btn-icon delete" (click)="anular(p)" title="Anular" [disabled]="p.anu_prog === 'X'" *ngIf="userLevel === 1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+              </button>
+              <button class="btn-icon reactivate" (click)="activar(p)" title="Activar" *ngIf="p.anu_prog === 'X' && userLevel === 1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6L9 17l-5-5"></path>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="seleccionado" class="modal-overlay">
+    <div class="modal-content programas-modal">
+      <div class="modal-hero">
+        <div>
+          <p class="modal-kicker">FORMULARIO DE PROGRAMAS</p>
+          <h3>{{ seleccionado.id_program ? 'Editar Programa' : 'Nuevo Programa' }}</h3>
+        </div>
+      </div>
+
+      <form (ngSubmit)="guardar()" class="programa-form">
+        <section class="form-panel form-panel-full">
+          <div class="panel-header">
+            <h4>Identidad del programa</h4>
+          </div>
+
+          <div class="field-group">
+            <label for="programa-nombre">Nombre</label>
+            <input id="programa-nombre" [(ngModel)]="seleccionado.nombre_program" name="nombre_program" maxlength="255" class="form-input" />
+          </div>
+
+          <div class="info-strip">
+            <div class="info-chip">
+              <span class="info-chip-label">Estado</span>
+              <strong>{{ seleccionado.anu_prog === 'X' ? 'Anulado' : 'Activo' }}</strong>
+            </div>
+            <div class="info-chip" *ngIf="seleccionado.id_program">
+              <span class="info-chip-label">Registro</span>
+              <strong>ID {{ seleccionado.id_program }}</strong>
+            </div>
+          </div>
+        </section>
+
+        <div class="form-footer">
+          <div class="footer-actions">
+            <button type="button" (click)="cerrar()" class="btn btn-light">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar programa</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,148 @@
+<div class="card-container">
+  <div class="header-actions alumnos-header">
+    <div class="header-copy">
+      <div class="header-title-row">
+        <span class="section-badge">Gestión de Alumnos</span>
+        <button class="btn btn-secondary btn-back" (click)="goToMenu()" title="Volver al menú">
+          🔙
+        </button>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="nuevo()" *ngIf="userLevel === 1">
+      <span>+</span> Nuevo Alumno
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Fecha Nacimiento</th>
+          <th>Edad</th>
+          <th>Dirección</th>
+          <th>Teléfono</th>
+          <th>Cédula</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of alumnos" [class.row-disabled]="a.anu_alum === 'X'">
+          <td>{{ a.id_alumno }}</td>
+          <td><div class="cell-primary">{{ a.nombre }}</div></td>
+          <td><div class="cell-primary">{{ a.apellido }}</div></td>
+          <td>{{ a.fecha_nacimiento || '-' }}</td>
+          <td class="text-center"><span class="age-pill">{{ calcularEdad(a.fecha_nacimiento) }}</span></td>
+          <td class="text-truncate-cell" title="{{ a.direccion || '-' }}">{{ a.direccion || '-' }}</td>
+          <td>{{ a.telefono || '-' }}</td>
+          <td>{{ a.cedula }}</td>
+          <td class="text-center actions-cell">
+            <span class="status-badge" [class.status-inactive]="a.anu_alum === 'X'">
+              {{ a.anu_alum === 'X' ? 'Anulado' : 'Activo' }}
+            </span>
+            <div class="row-actions">
+              <button class="btn-icon edit" (click)="editar(a)" title="Editar" [disabled]="a.anu_alum === 'X'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+              </button>
+
+              <button class="btn-icon delete" (click)="anular(a)" title="Anular" [disabled]="a.anu_alum === 'X'" *ngIf="userLevel === 1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+              </button>
+
+              <button class="btn-icon reactivate" (click)="activar(a)" title="Activar" *ngIf="a.anu_alum === 'X' && userLevel === 1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6L9 17l-5-5"></path>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="seleccionado" class="modal-overlay">
+    <div class="modal-content alumnos-modal">
+      <div class="modal-hero">
+        <div>
+          <p class="modal-kicker">FORMULARIO DE ALUMNOS</p>
+          <h3>{{ seleccionado.id_alumno ? 'Editar Alumno' : 'Nuevo Alumno' }}</h3>
+        </div>
+      </div>
+
+      <form (ngSubmit)="guardar()" class="alumno-form">
+        <div class="form-grid">
+          <section class="form-panel">
+            <div class="panel-header">
+              <h4>Datos personales</h4>
+            </div>
+
+            <div class="field-group">
+              <label for="alumno-nombre">Nombre</label>
+              <input id="alumno-nombre" [(ngModel)]="seleccionado.nombre" name="nombre" maxlength="100" class="form-input" />
+            </div>
+
+            <div class="field-group">
+              <label for="alumno-apellido">Apellido</label>
+              <input id="alumno-apellido" [(ngModel)]="seleccionado.apellido" name="apellido" maxlength="100" class="form-input" />
+            </div>
+
+            <div class="form-row">
+              <div class="field-group">
+                <label for="alumno-cedula">Cédula</label>
+                <input id="alumno-cedula" [(ngModel)]="seleccionado.cedula" name="cedula" maxlength="8" class="form-input" />
+              </div>
+              <div class="field-group">
+                <label for="alumno-fecha">Fecha de nacimiento</label>
+                <input id="alumno-fecha" type="date" [(ngModel)]="seleccionado.fecha_nacimiento" name="fecha_nacimiento" class="form-input" />
+              </div>
+            </div>
+          </section>
+
+          <section class="form-panel form-panel-accent">
+            <div class="panel-header">
+              <h4>Contacto y referencia</h4>
+            </div>
+
+            <div class="field-group">
+              <label for="alumno-direccion">Dirección</label>
+              <textarea id="alumno-direccion" [(ngModel)]="seleccionado.direccion" name="direccion" maxlength="255" class="form-input form-textarea"></textarea>
+            </div>
+
+            <div class="field-group">
+              <label for="alumno-telefono">Teléfono</label>
+              <input id="alumno-telefono" [(ngModel)]="seleccionado.telefono" name="telefono" maxlength="20" class="form-input" />
+            </div>
+
+            <div class="info-strip">
+              <div class="info-chip">
+                <span class="info-chip-label">Edad</span>
+                <strong>{{ calcularEdad(seleccionado.fecha_nacimiento) }}</strong>
+              </div>
+              <div class="info-chip">
+                <span class="info-chip-label">Estado</span>
+                <strong>{{ seleccionado.anu_alum === 'X' ? 'Anulado' : 'Activo' }}</strong>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="form-footer">
+          <div class="footer-actions">
+            <button type="button" (click)="cerrar()" class="btn btn-light">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar alumno</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

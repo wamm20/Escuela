@@ -1,0 +1,28 @@
+.brand {
+  padding: 18px 20px;
+  color: #cfe9ff;
+  font-weight: 600;
+  background: linear-gradient(180deg, #0f2b45, #102b3f);
+}
+.menu { padding: 12px 8px; }
+.menu ul { list-style: none; margin: 0; padding: 0; }
+.menu .item { margin: 6px 0; }
+.menu a, .menu .toggle { display: flex; align-items: center; padding: 10px 16px; color: #cbd8e6; text-decoration: none; border-radius: 6px; width:100%; background: transparent; border: none; }
+.menu a:hover, .menu .toggle:hover { background: rgba(255,255,255,0.03); color: #fff; }
+.menu .active a { background: #1572e8; color: #fff; }
+.has-children .children { margin-left: 8px; padding-left: 8px; border-left: 1px solid rgba(255,255,255,0.03); display: none; }
+.has-children .children.open { display: block; }
+.chev { margin-left: auto; opacity: .8 }
+.spacer { flex: 1 1 auto }
+.logout-area { padding: 16px; border-top: 1px solid rgba(255,255,255,0.03); }
+.logout { width:100%; padding:10px; border-radius:6px; background:#4da6ff; color:#ffffff; border:none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600; }
+.logout:hover { background: #3b8ddb; }
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: linear-gradient(180deg, #071424, #0b2233);
+  width: 260px;
+  color: #cbd8e6;
+}

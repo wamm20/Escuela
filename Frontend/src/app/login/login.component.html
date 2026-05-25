@@ -1,0 +1,50 @@
+<div class="page-shell">
+  <!-- contenedor para los avioncitos animados -->
+  <div class="planes-container">
+    <span *ngFor="let plane of planes" class="plane"
+          [ngStyle]="{
+            'top': plane.top + '%',
+            'left': plane.left + '%',
+            'transform': 'rotate(' + plane.rotation + 'deg)'
+          }">
+      {{ plane.icon }}
+    </span>
+  </div>
+  <div class="center-card">
+    <div class="card-top"></div>
+    <div class="card-body">
+      <div class="logo">
+        <img src="assets/logo-escuela-aeronautica.png" alt="Logo de la escuela" />
+      </div>
+      <h3>Accede a tu cuenta</h3>
+      <p class="muted">Paso 1<br/><span class="small">Ingresa tu email o usuario registrado</span></p>
+
+      <form (ngSubmit)="submit()">
+        <label class="input-label">Usuario o email
+          <div class="input-with-icon">
+            <span class="left-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </span>
+            <input class="form-input" placeholder="Usuario o email" [(ngModel)]="username" name="username" aria-label="Usuario o email" (keydown.enter)="$event.preventDefault()" />
+          </div>
+        </label>
+
+        <label class="input-label">Contraseña
+          <div class="input-with-icon password-wrap">
+            <input class="form-input" [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña" [(ngModel)]="password" name="password" aria-label="Contraseña" />
+            <button type="button" class="eye-btn" (click)="toggleShowPassword()" [attr.aria-pressed]="showPassword" [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+              <svg *ngIf="!showPassword" class="eye-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+              <svg *ngIf="showPassword" class="eye-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-6 0-10-7-10-7a19.8 19.8 0 0 1 4.34-4.94"/><path d="M9.88 9.88A3 3 0 0 0 14.12 14.12"/><path d="M1 1l22 22"/></svg>
+            </button>
+          </div>
+        </label>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary" [disabled]="loading || formInvalid">{{ loading ? 'Entrando...' : 'Siguiente →' }}</button>
+        </div>
+      </form>
+
+      <div *ngIf="error" class="error">{{ error }}</div>
+    </div>
+  </div>
+</div>

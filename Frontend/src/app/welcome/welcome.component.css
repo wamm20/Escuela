@@ -1,0 +1,11 @@
+.welcome-shell, :host, .page-shell { min-height:100vh; display:flex; align-items:center; justify-content:center; background: radial-gradient(ellipse at bottom, #0f1a2b 0%, #0b1320 60%); position:relative }
+
+.page-shell:before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(#ffe6f2 1px, transparent 1px), radial-gradient(#ffe6f2 1px, transparent 1px); background-size: 120px 120px, 200px 200px; background-position: 10px 20px, 80px 120px; opacity: 0.12; pointer-events: none; }
+
+.center-card { width:420px; background:#f6f6f8; border-radius:10px; box-shadow:0 10px 30px rgba(10,12,20,0.45); overflow:hidden }
+.card-top { height:8px; background: linear-gradient(90deg,#6a63ff,#b04fe8); }
+.card-body { padding:22px 26px; text-align:center }
+.logo { width:100%; margin-bottom:8px }
+.logo img { max-width:120px }
+.card h2 { margin:6px 0 4px 0; color:#222 }
+.muted { color:#6b6b78 }

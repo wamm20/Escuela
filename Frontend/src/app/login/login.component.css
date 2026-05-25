@@ -1,0 +1,82 @@
+:host, .page-shell {
+  width: 100vw; /* ocupar todo el ancho de la ventana */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #336699; /* azul más oscuro para contraste mejor */
+  position: relative;
+  overflow: hidden;
+}
+
+/* contenedor y estilo de los avioncitos */
+.planes-container {
+  position: fixed; /* fijado a la ventana para cubrir todo el espacio */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;              /* debajo de la tarjeta pero sobre las estrellas */
+  pointer-events: none;    /* no interfieren con los formularios */
+  overflow: hidden;
+}
+
+.page-shell:before {
+  z-index: -1; /* poner el pseudo‑elemento de estrellas atrás */
+}
+
+.plane {
+  position: absolute;
+  font-size: 24px;           /* tamaño consistente con emoji */
+  line-height: 1;
+  transition: top 5s linear, left 5s linear, transform 5s linear;
+  pointer-events: none;
+  z-index: 0;
+  text-shadow: 0 0 2px rgba(0,0,0,0.6); /* borde sutil para contraste */
+}
+
+/* eliminada la capa de estrellas para tener fondo liso */
+.page-shell:before {
+  display: none;
+}
+
+.center-card {
+  width: 460px;
+  background-color: #f6f6f8;
+  z-index: 1; /* asegurar que la tarjeta esté sobre los aviones */
+  color: #222;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(10,12,20,0.45);
+  overflow: hidden;
+}
+
+.card-top { height: 8px; background: linear-gradient(90deg,#6a63ff,#b04fe8); }
+
+.card-body { padding: 26px 30px; }
+
+.logo { text-align: center; margin-bottom: 6px; }
+.logo img { max-width: 170px; width: 100%; height: auto; display: inline-block; }
+
+h3 { text-align: center; margin: 6px 0; color: #222; font-weight: 700; }
+.muted { text-align: center; color: #6b6b78; margin-bottom: 18px; font-size: 14px; }
+.muted .small { color: #8a8a95; font-size: 12px; display:block; margin-top:6px }
+
+.input-label { display:block; font-size:12px; color:#555; margin-bottom:10px }
+.input-with-icon { position: relative; }
+.left-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color:#8a7fa8; display:flex; align-items:center; }
+.form-input { box-sizing: border-box; width: 100%; padding: 12px 14px 12px 40px; border-radius: 6px; border: 1px solid #d4d4dd; background: #fff; color:#222; font-size:14px }
+.form-input:focus { outline: none; box-shadow: 0 0 0 3px rgba(106,99,255,0.12); border-color: #8b75ff }
+
+.password-wrap { position: relative; }
+.password-wrap .form-input { padding-right: 44px }
+.eye-btn { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); border: none; background: transparent; cursor: pointer; color:#6b6b78 }
+.eye-svg { width:20px; height:20px }
+
+.actions { margin-top: 18px; display:flex; justify-content:flex-end }
+.btn-primary { padding: 10px 18px; background: linear-gradient(90deg,#6a63ff,#b04fe8); color: #fff; border: none; border-radius: 20px; font-weight:600; cursor:pointer }
+.btn-primary[disabled] { opacity:0.6; cursor:not-allowed }
+
+.error { color: #d9534f; margin-top: 12px; text-align: center; font-weight: 600 }
+
+/* small screens */
+@media(max-width:600px){ .center-card{ width:92%; } .actions{ justify-content:center } }

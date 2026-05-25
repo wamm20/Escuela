@@ -1,0 +1,7 @@
+**** Activar el Entorno Virtual
+source .venv/bin/activate
+**** Prueba de Conexion a la BD Postgres
+python3 database.py
+**** Biblioteca a Instalar para seguridad
+python-dotenv
+**** Se crea un archivo .env que contienelas credenciales de Conexion

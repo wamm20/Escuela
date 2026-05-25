@@ -1,0 +1,135 @@
+<div class="card-container">
+  <div class="header-actions profesores-header">
+    <div class="header-copy">
+      <div class="header-title-row">
+        <span class="section-badge">Gestión de Profesores</span>
+        <button class="btn btn-secondary btn-back" (click)="goToMenu()" title="Volver al menú">
+          🔙
+        </button>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="nuevo()" *ngIf="userLevel === 1">
+      <span>+</span> Nuevo Profesor
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Cédula</th>
+          <th>Especialidad</th>
+          <th>Email</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of profesores" [class.row-disabled]="p.anu_prof === 'X'">
+          <td>{{ p.id_profesor }}</td>
+          <td><div class="cell-primary">{{ p.nombre }}</div></td>
+          <td><div class="cell-primary">{{ p.apellido }}</div></td>
+          <td>{{ p.cedula_prof || '-' }}</td>
+          <td class="text-truncate-cell" title="{{ p.especialidad || '-' }}">{{ p.especialidad || '-' }}</td>
+          <td class="text-truncate-cell" title="{{ p.email || '-' }}">{{ p.email || '-' }}</td>
+          <td class="text-center actions-cell">
+            <span class="status-badge" [class.status-inactive]="p.anu_prof === 'X'">
+              {{ p.anu_prof === 'X' ? 'Anulado' : 'Activo' }}
+            </span>
+            <div class="row-actions">
+              <button class="btn-icon edit" (click)="editar(p)" title="Editar" [disabled]="p.anu_prof === 'X'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+              </button>
+              <button class="btn-icon delete" (click)="anular(p)" title="Anular" [disabled]="p.anu_prof === 'X'" *ngIf="userLevel === 1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+              </button>
+              <button class="btn-icon reactivate" (click)="activar(p)" title="Activar" *ngIf="p.anu_prof === 'X' && userLevel === 1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6L9 17l-5-5"></path>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="seleccionado" class="modal-overlay">
+    <div class="modal-content profesores-modal">
+      <div class="modal-hero">
+        <div>
+          <p class="modal-kicker">FORMULARIO DE PROFESORES</p>
+          <h3>{{ seleccionado.id_profesor ? 'Editar Profesor' : 'Nuevo Profesor' }}</h3>
+        </div>
+      </div>
+
+      <form (ngSubmit)="guardar()" class="profesor-form">
+        <div class="form-grid">
+          <section class="form-panel">
+            <div class="panel-header">
+              <h4>Datos personales</h4>
+            </div>
+
+            <div class="field-group">
+              <label for="profesor-nombre">Nombre</label>
+              <input id="profesor-nombre" [(ngModel)]="seleccionado.nombre" (ngModelChange)="onUpper('nombre',$event)" name="nombre" maxlength="100" class="form-input" />
+            </div>
+
+            <div class="field-group">
+              <label for="profesor-apellido">Apellido</label>
+              <input id="profesor-apellido" [(ngModel)]="seleccionado.apellido" (ngModelChange)="onUpper('apellido',$event)" name="apellido" maxlength="100" class="form-input" />
+            </div>
+
+            <div class="field-group">
+              <label for="profesor-cedula">Cédula</label>
+              <input id="profesor-cedula" [(ngModel)]="seleccionado.cedula_prof" (ngModelChange)="onDigitsOnly('cedula_prof',$event)" name="cedula_prof" maxlength="8" class="form-input" />
+            </div>
+          </section>
+
+          <section class="form-panel form-panel-accent">
+            <div class="panel-header">
+              <h4>Perfil profesional</h4>
+            </div>
+
+            <div class="field-group">
+              <label for="profesor-especialidad">Especialidad</label>
+              <input id="profesor-especialidad" [(ngModel)]="seleccionado.especialidad" (ngModelChange)="onUpper('especialidad',$event)" name="especialidad" maxlength="255" class="form-input" />
+            </div>
+
+            <div class="field-group">
+              <label for="profesor-email">Email</label>
+              <input id="profesor-email" [(ngModel)]="seleccionado.email" (ngModelChange)="onUpper('email',$event)" name="email" maxlength="255" class="form-input form-input-lower" />
+            </div>
+
+            <div class="info-strip">
+              <div class="info-chip">
+                <span class="info-chip-label">Estado</span>
+                <strong>{{ seleccionado.anu_prof === 'X' ? 'Anulado' : 'Activo' }}</strong>
+              </div>
+              <div class="info-chip" *ngIf="seleccionado.id_profesor">
+                <span class="info-chip-label">Registro</span>
+                <strong>ID {{ seleccionado.id_profesor }}</strong>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="form-footer">
+          <div class="footer-actions">
+            <button type="button" (click)="cerrar()" class="btn btn-light">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar profesor</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

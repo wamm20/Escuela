@@ -1,0 +1,38 @@
+<div class="brand">Escuela<span style="color: #4da6ff;">Aerop</span></div>
+<nav class="menu">
+  <ul>
+    <li class="item">
+      <a routerLink="/inscripciones" routerLinkActive="active">Inscripciones</a>
+    </li>
+    <li class="item">
+      <a href="#">Calificaciones</a>
+    </li>
+    <li class="item has-children">
+      <button class="toggle" (click)="toggleSettings()">
+        <span>Configuración</span>
+        <span class="chev">{{ settingsOpen ? '▾' : '▸' }}</span>
+      </button>
+      <ul class="children" [class.open]="settingsOpen">
+        <li><a routerLink="/alumnos" routerLinkActive="active">Alumnos</a></li>
+        <li><a routerLink="/profesores" routerLinkActive="active">Profesores</a></li>
+        <li><a routerLink="/materias" routerLinkActive="active">Materias</a></li>
+        <li><a routerLink="/cursos" routerLinkActive="active">Cursos</a></li>
+        <li><a routerLink="/cursos-materias" routerLinkActive="active">Cursos Materias</a></li>
+        <li><a routerLink="/programas" routerLinkActive="active">Programas</a></li>
+        <li><a routerLink="/usuarios" routerLinkActive="active">Usuarios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+<div class="spacer"></div>
+<div class="logout-area">
+  <button class="logout" (click)="logout()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+      <polyline points="16 17 21 12 16 7"></polyline>
+      <line x1="21" y1="12" x2="9" y2="12"></line>
+    </svg>
+    <span>Salir</span>
+  </button>
+</div>

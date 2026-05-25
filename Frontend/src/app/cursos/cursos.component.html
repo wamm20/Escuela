@@ -1,0 +1,196 @@
+<div class="card-container">
+  <div class="header-actions cursos-header">
+    <div class="header-copy">
+      <div class="header-title-row">
+        <span class="section-badge">Gestión de Cursos</span>
+        <button class="btn btn-secondary btn-back" (click)="goToMenu()" title="Volver al menú">
+          🔙
+        </button>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="nuevo()" *ngIf="userLevel === 1">
+      <span>+</span> Nuevo Curso
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Año</th>
+          <th>Inicio</th>
+          <th>Fin</th>
+          <th>Estado</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of cursos" [class.row-disabled]="c.anu_cur === 'X'">
+          <td>{{ c.id_curso }}</td>
+          <td><div class="cell-primary">{{ c.nombre_curso }}</div></td>
+          <td>{{ c.anio_escolar }}</td>
+          <td>{{ c.fecha_inicio || '-' }}</td>
+          <td>{{ c.fecha_fin || '-' }}</td>
+          <td><span class="state-pill">{{ c.estado_curso || '-' }}</span></td>
+          <td class="text-center actions-cell">
+            <span class="status-badge" [class.status-inactive]="c.anu_cur === 'X'">
+              {{ c.anu_cur === 'X' ? 'Anulado' : 'Activo' }}
+            </span>
+            <div class="row-actions">
+              <button class="btn-icon library" (click)="abrirAsignaciones(c)" title="Asignar materias" [disabled]="c.anu_cur === 'X'">
+                📚
+              </button>
+              <button class="btn-icon edit" (click)="editar(c)" title="Editar" [disabled]="c.anu_cur === 'X'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+              </button>
+              <button class="btn-icon delete" (click)="anular(c)" title="Anular" [disabled]="c.anu_cur === 'X'" *ngIf="userLevel === 1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+              </button>
+              <button class="btn-icon reactivate" (click)="activar(c)" title="Activar" *ngIf="c.anu_cur === 'X' && userLevel === 1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6L9 17l-5-5"></path>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="seleccionado" class="modal-overlay">
+    <div class="modal-content cursos-modal">
+      <div class="modal-hero">
+        <div>
+          <p class="modal-kicker">FORMULARIO DE CURSOS</p>
+          <h3>{{ seleccionado.id_curso ? 'Editar Curso' : 'Nuevo Curso' }}</h3>
+        </div>
+      </div>
+
+      <form (ngSubmit)="guardar()" class="curso-form">
+        <div class="form-grid">
+          <section class="form-panel">
+            <div class="panel-header">
+              <h4>Identidad del curso</h4>
+            </div>
+
+            <div class="field-group" *ngIf="!seleccionado.id_curso">
+              <label for="curso-programa">Programa</label>
+              <select id="curso-programa" [(ngModel)]="seleccionado.id_program" name="id_program" class="form-input form-select" (ngModelChange)="onProgramaChange()">
+                <option [ngValue]="null">Seleccione un programa</option>
+                <option *ngFor="let programa of programas" [ngValue]="programa.id_program">{{ programa.nombre_program }}</option>
+              </select>
+              <span class="field-helper">El nombre del curso se completa con el programa seleccionado.</span>
+            </div>
+
+            <div class="field-group">
+              <label for="curso-nombre">Nombre del curso</label>
+              <input id="curso-nombre" [(ngModel)]="seleccionado.nombre_curso" name="nombre_curso" maxlength="255" class="form-input" [readonly]="!seleccionado.id_curso" [class.locked-input]="!seleccionado.id_curso" />
+            </div>
+
+            <div class="field-group">
+              <label for="curso-anio">Año escolar</label>
+              <input id="curso-anio" [(ngModel)]="seleccionado.anio_escolar" name="anio_escolar" maxlength="50" class="form-input" />
+            </div>
+          </section>
+
+          <section class="form-panel form-panel-accent">
+            <div class="panel-header">
+              <h4>Periodo y estado</h4>
+            </div>
+
+            <div class="form-row">
+              <div class="field-group">
+                <label for="curso-inicio">Fecha de inicio</label>
+                <input id="curso-inicio" type="date" [(ngModel)]="seleccionado.fecha_inicio" name="fecha_inicio" class="form-input" />
+              </div>
+
+              <div class="field-group">
+                <label for="curso-fin">Fecha de fin</label>
+                <input id="curso-fin" type="date" [(ngModel)]="seleccionado.fecha_fin" name="fecha_fin" class="form-input" />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="curso-estado">Estado</label>
+              <select id="curso-estado" [(ngModel)]="seleccionado.estado_curso" name="estado_curso" class="form-input form-select">
+                <option value="ACTIVO">ACTIVO</option>
+                <option value="PAUSADO">PAUSADO</option>
+                <option value="CULMINADO">CULMINADO</option>
+              </select>
+            </div>
+
+            <div class="info-strip">
+              <div class="info-chip" *ngIf="!seleccionado.id_curso && seleccionado.id_program">
+                <span class="info-chip-label">Programa</span>
+                <strong>{{ seleccionado.nombre_curso || 'SELECCIONE UN PROGRAMA' }}</strong>
+              </div>
+              <div class="info-chip">
+                <span class="info-chip-label">Estado visible</span>
+                <strong>{{ seleccionado.estado_curso || 'ACTIVO' }}</strong>
+              </div>
+              <div class="info-chip" *ngIf="seleccionado.id_curso">
+                <span class="info-chip-label">Registro</span>
+                <strong>ID {{ seleccionado.id_curso }}</strong>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="form-footer">
+          <div class="footer-actions">
+            <button type="button" (click)="cerrar()" class="btn btn-light">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar curso</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showAsignacionesModal" class="modal-overlay assignments-overlay">
+  <div class="modal-content assignments-modal">
+    <div class="modal-hero assignments-hero">
+      <div>
+        <p class="modal-kicker">ASIGNACIÓN DE MATERIAS</p>
+        <h3>{{ cursoParaAsignar?.nombre_curso }}</h3>
+      </div>
+    </div>
+
+    <div class="assignments-body">
+      <table class="user-table assignment-table">
+        <thead>
+          <tr><th>Materia</th><th>Profesor</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of materias">
+            <td>
+              <div class="cell-primary">{{ m.nombre_materia }}</div>
+            </td>
+            <td>
+              <select class="form-input form-select" [ngModel]="getProfesorAsignado(m.id_materia)" (ngModelChange)="onProfesorChanged(m.id_materia,$event)">
+                <option [ngValue]="null">-- Seleccionar profesor --</option>
+                <option *ngFor="let p of profesores" [value]="p.id_profesor">{{ p.nombre }} {{ p.apellido }}</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="form-footer assignments-footer">
+        <div class="footer-actions">
+          <button type="button" (click)="showAsignacionesModal=false" class="btn btn-light">Cancelar</button>
+          <button type="button" (click)="guardarAsignaciones()" class="btn btn-primary">Guardar asignaciones</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+/* Estilos básicos para centrar el login */
+body, html {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg,#0b2130 0%, #0f2030 100%);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.center-card {
+  width: 420px;
+  margin: 6% auto;
+  background: transparent; /* removed white background to let component styles take effect */
+  padding: 36px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.card-with-top {
+  position: relative;
+  overflow: hidden;
+}
+.card-with-top:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg,#6a63ff,#b04fe8);
+}
+
+.logo { text-align:center; margin-bottom: 12px; }
+.form-group { margin-bottom: 14px; }
+.form-input { width: 100%; padding: 10px; border: 1px solid #cfd8e3; border-radius: 6px; }
+.btn-primary { background: linear-gradient(90deg,#6a63ff,#b04fe8); color: #fff; padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer; }
+.error { color: #b00020; margin-top: 8px; }
+
+/* global icon button styles used in tables */
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 6px;
+  border-radius: 4px;
+  transition: background 0.2s;
+  margin: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon.edit { color: #f59e0b; }
+.btn-icon.edit:hover { background-color: #fffbeb; }
+
+.btn-icon.delete { color: #ef4444; }
+.btn-icon.delete:hover { background-color: #fef2f2; }
+
+/* ensure svg inside icon button uses currentColor */
+.btn-icon svg { width: 20px; height: 20px; stroke: currentColor; }
+
+/* Ajustes responsivos */
+@media (max-width: 480px) {
+  .center-card { width: 92%; margin-top: 20%; padding: 20px; }
+}
+
+/* modal forms should blend with dark theme, no white outline */
+.modal-content {
+  background: #27293d !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+.modal-overlay {
+  background: rgba(0,0,0,0.6) !important;
+}

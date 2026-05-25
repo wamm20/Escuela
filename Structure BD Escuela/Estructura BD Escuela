@@ -1,0 +1,847 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict El3XcP1ZkdjDDhASbbCTRTIxcSn9aSDXU8qsryK0rklBwisqw35zwcoLAHK9izb
+
+-- Dumped from database version 15.16 (Ubuntu 15.16-1.pgdg24.04+1)
+-- Dumped by pg_dump version 15.16 (Ubuntu 15.16-1.pgdg24.04+1)
+
+-- Started on 2026-02-27 20:23:37 -04
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 6 (class 2615 OID 17395)
+-- Name: escuela; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA escuela;
+
+
+ALTER SCHEMA escuela OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 220 (class 1259 OID 17416)
+-- Name: alumnos; Type: TABLE; Schema: escuela; Owner: postgres
+--
+
+CREATE TABLE escuela.alumnos (
+    id_alumno integer NOT NULL,
+    nombre character varying(100) NOT NULL,
+    apellido character varying(100) NOT NULL,
+    fecha_nacimiento date,
+    direccion character varying(255),
+    telefono character varying(20),
+    cedula numeric(8,0),
+    anu_alum character(1)
+);
+
+
+ALTER TABLE escuela.alumnos OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 17415)
+-- Name: alumnos_id_alumno_seq; Type: SEQUENCE; Schema: escuela; Owner: postgres
+--
+
+CREATE SEQUENCE escuela.alumnos_id_alumno_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE escuela.alumnos_id_alumno_seq OWNER TO postgres;
+
+--
+-- TOC entry 3533 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: alumnos_id_alumno_seq; Type: SEQUENCE OWNED BY; Schema: escuela; Owner: postgres
+--
+
+ALTER SEQUENCE escuela.alumnos_id_alumno_seq OWNED BY escuela.alumnos.id_alumno;
+
+
+--
+-- TOC entry 228 (class 1259 OID 17471)
+-- Name: calificaciones; Type: TABLE; Schema: escuela; Owner: postgres
+--
+
+CREATE TABLE escuela.calificaciones (
+    id_calificacion integer NOT NULL,
+    id_inscripcion integer NOT NULL,
+    id_curso_materia integer NOT NULL,
+    nota numeric(5,2) NOT NULL,
+    fecha_calificacion date NOT NULL
+);
+
+
+ALTER TABLE escuela.calificaciones OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 17470)
+-- Name: calificaciones_id_calificacion_seq; Type: SEQUENCE; Schema: escuela; Owner: postgres
+--
+
+CREATE SEQUENCE escuela.calificaciones_id_calificacion_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE escuela.calificaciones_id_calificacion_seq OWNER TO postgres;
+
+--
+-- TOC entry 3534 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: calificaciones_id_calificacion_seq; Type: SEQUENCE OWNED BY; Schema: escuela; Owner: postgres
+--
+
+ALTER SEQUENCE escuela.calificaciones_id_calificacion_seq OWNED BY escuela.calificaciones.id_calificacion;
+
+
+--
+-- TOC entry 224 (class 1259 OID 17430)
+-- Name: curso_materia; Type: TABLE; Schema: escuela; Owner: postgres
+--
+
+CREATE TABLE escuela.curso_materia (
+    id_curso_materia integer NOT NULL,
+    id_curso integer NOT NULL,
+    id_materia integer NOT NULL,
+    id_profesor integer,
+    anu_cur_mat character(1)
+);
+
+
+ALTER TABLE escuela.curso_materia OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 17429)
+-- Name: curso_materia_id_curso_materia_seq; Type: SEQUENCE; Schema: escuela; Owner: postgres
+--
+
+CREATE SEQUENCE escuela.curso_materia_id_curso_materia_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE escuela.curso_materia_id_curso_materia_seq OWNER TO postgres;
+
+--
+-- TOC entry 3535 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: curso_materia_id_curso_materia_seq; Type: SEQUENCE OWNED BY; Schema: escuela; Owner: postgres
+--
+
+ALTER SEQUENCE escuela.curso_materia_id_curso_materia_seq OWNED BY escuela.curso_materia.id_curso_materia;
+
+
+--
+-- TOC entry 216 (class 1259 OID 17397)
+-- Name: cursos; Type: TABLE; Schema: escuela; Owner: postgres
+--
+
+CREATE TABLE escuela.cursos (
+    id_curso integer NOT NULL,
+    nombre_curso character varying(255) NOT NULL,
+    anio_escolar character varying(50) NOT NULL,
+    fecha_inicio date NOT NULL,
+    fecha_fin date NOT NULL,
+    estado_curso character varying(50) DEFAULT 'Abierto'::character varying NOT NULL,
+    anu_cur character(1)
+);
+
+
+ALTER TABLE escuela.cursos OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 17396)
+-- Name: cursos_id_curso_seq; Type: SEQUENCE; Schema: escuela; Owner: postgres
+--
+
+CREATE SEQUENCE escuela.cursos_id_curso_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE escuela.cursos_id_curso_seq OWNER TO postgres;
+
+--
+-- TOC entry 3536 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: cursos_id_curso_seq; Type: SEQUENCE OWNED BY; Schema: escuela; Owner: postgres
+--
+
+ALTER SEQUENCE escuela.cursos_id_curso_seq OWNED BY escuela.cursos.id_curso;
+
+
+--
+-- TOC entry 226 (class 1259 OID 17454)
+-- Name: inscripciones; Type: TABLE; Schema: escuela; Owner: postgres
+--
+
+CREATE TABLE escuela.inscripciones (
+    id_inscripcion integer NOT NULL,
+    id_alumno integer NOT NULL,
+    id_curso integer NOT NULL,
+    fecha_inscripcion date NOT NULL
+);
+
+
+ALTER TABLE escuela.inscripciones OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 17453)
+-- Name: inscripciones_id_inscripcion_seq; Type: SEQUENCE; Schema: escuela; Owner: postgres
+--
+
+CREATE SEQUENCE escuela.inscripciones_id_inscripcion_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE escuela.inscripciones_id_inscripcion_seq OWNER TO postgres;
+
+--
+-- TOC entry 3537 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: inscripciones_id_inscripcion_seq; Type: SEQUENCE OWNED BY; Schema: escuela; Owner: postgres
+--
+
+ALTER SEQUENCE escuela.inscripciones_id_inscripcion_seq OWNED BY escuela.inscripciones.id_inscripcion;
+
+
+--
+-- TOC entry 222 (class 1259 OID 17423)
+-- Name: materias; Type: TABLE; Schema: escuela; Owner: postgres
+--
+
+CREATE TABLE escuela.materias (
+    id_materia integer NOT NULL,
+    nombre_materia character varying(255) NOT NULL,
+    anu_mat character(1)
+);
+
+
+ALTER TABLE escuela.materias OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 17422)
+-- Name: materias_id_materia_seq; Type: SEQUENCE; Schema: escuela; Owner: postgres
+--
+
+CREATE SEQUENCE escuela.materias_id_materia_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE escuela.materias_id_materia_seq OWNER TO postgres;
+
+--
+-- TOC entry 3538 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: materias_id_materia_seq; Type: SEQUENCE OWNED BY; Schema: escuela; Owner: postgres
+--
+
+ALTER SEQUENCE escuela.materias_id_materia_seq OWNED BY escuela.materias.id_materia;
+
+
+--
+-- TOC entry 218 (class 1259 OID 17405)
+-- Name: profesores; Type: TABLE; Schema: escuela; Owner: postgres
+--
+
+CREATE TABLE escuela.profesores (
+    id_profesor integer NOT NULL,
+    nombre character varying(100) NOT NULL,
+    apellido character varying(100) NOT NULL,
+    especialidad character varying(255),
+    email character varying(255),
+    anu_prof character(1),
+    cedula_prof numeric(8,0)
+);
+
+
+ALTER TABLE escuela.profesores OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 17404)
+-- Name: profesores_id_profesor_seq; Type: SEQUENCE; Schema: escuela; Owner: postgres
+--
+
+CREATE SEQUENCE escuela.profesores_id_profesor_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE escuela.profesores_id_profesor_seq OWNER TO postgres;
+
+--
+-- TOC entry 3539 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: profesores_id_profesor_seq; Type: SEQUENCE OWNED BY; Schema: escuela; Owner: postgres
+--
+
+ALTER SEQUENCE escuela.profesores_id_profesor_seq OWNED BY escuela.profesores.id_profesor;
+
+
+--
+-- TOC entry 229 (class 1259 OID 17495)
+-- Name: usuarios; Type: TABLE; Schema: escuela; Owner: postgres
+--
+
+CREATE TABLE escuela.usuarios (
+    id_usuario integer NOT NULL,
+    ci_usuario numeric(8,0) NOT NULL,
+    nom_usuario character varying(100) NOT NULL,
+    ape_usuario character varying(100) NOT NULL,
+    nvl_usuario numeric(1,0) NOT NULL,
+    cargo_usuario character varying(30) NOT NULL,
+    usuario character varying(100) NOT NULL,
+    pwr_usuario_plain text,
+    pwr_usuario_hash text,
+    anu_usu character(1)
+);
+
+
+ALTER TABLE escuela.usuarios OWNER TO postgres;
+
+--
+-- TOC entry 231 (class 1259 OID 17509)
+-- Name: usuarios_id_usuario_seq; Type: SEQUENCE; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE escuela.usuarios ALTER COLUMN id_usuario ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME escuela.usuarios_id_usuario_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 230 (class 1259 OID 17502)
+-- Name: usuarios_pwr_plain_backup; Type: TABLE; Schema: escuela; Owner: postgres
+--
+
+CREATE TABLE escuela.usuarios_pwr_plain_backup (
+    id_usuario integer,
+    usuario text,
+    pwr_usuario_plain text,
+    backed_at timestamp with time zone DEFAULT now(),
+    nom_usuario character varying(100),
+    ape_usuario character varying(100)
+);
+
+
+ALTER TABLE escuela.usuarios_pwr_plain_backup OWNER TO postgres;
+
+--
+-- TOC entry 3328 (class 2604 OID 17419)
+-- Name: alumnos id_alumno; Type: DEFAULT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.alumnos ALTER COLUMN id_alumno SET DEFAULT nextval('escuela.alumnos_id_alumno_seq'::regclass);
+
+
+--
+-- TOC entry 3332 (class 2604 OID 17474)
+-- Name: calificaciones id_calificacion; Type: DEFAULT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.calificaciones ALTER COLUMN id_calificacion SET DEFAULT nextval('escuela.calificaciones_id_calificacion_seq'::regclass);
+
+
+--
+-- TOC entry 3330 (class 2604 OID 17433)
+-- Name: curso_materia id_curso_materia; Type: DEFAULT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.curso_materia ALTER COLUMN id_curso_materia SET DEFAULT nextval('escuela.curso_materia_id_curso_materia_seq'::regclass);
+
+
+--
+-- TOC entry 3325 (class 2604 OID 17400)
+-- Name: cursos id_curso; Type: DEFAULT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.cursos ALTER COLUMN id_curso SET DEFAULT nextval('escuela.cursos_id_curso_seq'::regclass);
+
+
+--
+-- TOC entry 3331 (class 2604 OID 17457)
+-- Name: inscripciones id_inscripcion; Type: DEFAULT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.inscripciones ALTER COLUMN id_inscripcion SET DEFAULT nextval('escuela.inscripciones_id_inscripcion_seq'::regclass);
+
+
+--
+-- TOC entry 3329 (class 2604 OID 17426)
+-- Name: materias id_materia; Type: DEFAULT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.materias ALTER COLUMN id_materia SET DEFAULT nextval('escuela.materias_id_materia_seq'::regclass);
+
+
+--
+-- TOC entry 3327 (class 2604 OID 17408)
+-- Name: profesores id_profesor; Type: DEFAULT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.profesores ALTER COLUMN id_profesor SET DEFAULT nextval('escuela.profesores_id_profesor_seq'::regclass);
+
+
+--
+-- TOC entry 3516 (class 0 OID 17416)
+-- Dependencies: 220
+-- Data for Name: alumnos; Type: TABLE DATA; Schema: escuela; Owner: postgres
+--
+
+COPY escuela.alumnos (id_alumno, nombre, apellido, fecha_nacimiento, direccion, telefono, cedula, anu_alum) FROM stdin;
+2	ALIDA	CHUELLO	1962-12-21	BARRIO AEROPUERTO, BLOQUE 02, EDF 01, APTO 0002, URIMARE, EDO VARGAS	04123315623	6470582	\N
+1	JHONNY	MARTÍNEZ	1959-12-23	PLAZOLETA EL GUAMACHO CASA #68, LA GUAIRA, EDO LA GUAIRA, VENEZUELA	04142533774	6470583	\N
+\.
+
+
+--
+-- TOC entry 3524 (class 0 OID 17471)
+-- Dependencies: 228
+-- Data for Name: calificaciones; Type: TABLE DATA; Schema: escuela; Owner: postgres
+--
+
+COPY escuela.calificaciones (id_calificacion, id_inscripcion, id_curso_materia, nota, fecha_calificacion) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3520 (class 0 OID 17430)
+-- Dependencies: 224
+-- Data for Name: curso_materia; Type: TABLE DATA; Schema: escuela; Owner: postgres
+--
+
+COPY escuela.curso_materia (id_curso_materia, id_curso, id_materia, id_profesor, anu_cur_mat) FROM stdin;
+1	1	1	5	\N
+2	1	5	5	\N
+3	1	6	5	\N
+4	1	7	4	\N
+5	2	1	5	\N
+6	2	2	6	\N
+7	2	4	6	\N
+\.
+
+
+--
+-- TOC entry 3512 (class 0 OID 17397)
+-- Dependencies: 216
+-- Data for Name: cursos; Type: TABLE DATA; Schema: escuela; Owner: postgres
+--
+
+COPY escuela.cursos (id_curso, nombre_curso, anio_escolar, fecha_inicio, fecha_fin, estado_curso, anu_cur) FROM stdin;
+1	INFORMATICA BASICA	2026	2026-03-16	2026-06-15	ACTIVO	\N
+2	MECANICA DE AERONAVES	2026	2026-04-01	2026-11-30	ACTIVO	\N
+\.
+
+
+--
+-- TOC entry 3522 (class 0 OID 17454)
+-- Dependencies: 226
+-- Data for Name: inscripciones; Type: TABLE DATA; Schema: escuela; Owner: postgres
+--
+
+COPY escuela.inscripciones (id_inscripcion, id_alumno, id_curso, fecha_inscripcion) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3518 (class 0 OID 17423)
+-- Dependencies: 222
+-- Data for Name: materias; Type: TABLE DATA; Schema: escuela; Owner: postgres
+--
+
+COPY escuela.materias (id_materia, nombre_materia, anu_mat) FROM stdin;
+1	TECNOLOGIA DE LA INFORMACION	\N
+2	RESTAURACION DE MOTORES A REACCION	\N
+3	TRAFICO AEREO	\N
+4	MANTENIMIENTO DE AERONAVES	\N
+5	MANTENIMIENTO DE HARDWARE	\N
+6	INSTALACION DE SOFTWARE	\N
+7	GESTION DE REDES	\N
+\.
+
+
+--
+-- TOC entry 3514 (class 0 OID 17405)
+-- Dependencies: 218
+-- Data for Name: profesores; Type: TABLE DATA; Schema: escuela; Owner: postgres
+--
+
+COPY escuela.profesores (id_profesor, nombre, apellido, especialidad, email, anu_prof, cedula_prof) FROM stdin;
+5	WILLIAM	MARTINEZ	MOTORES A REACCION	WAMM2006@GMAIL.COM	\N	20200959
+4	JUAN	PEREZ	ADMINITRACION	JUANPEREZADM@GMAIL.COM	\N	1656454
+6	DOUGLAS	MARTÍNEZ	MECANICA DE AERONAVES	MACDOUGLAS@GMAIL.COM	\N	18235987
+\.
+
+
+--
+-- TOC entry 3525 (class 0 OID 17495)
+-- Dependencies: 229
+-- Data for Name: usuarios; Type: TABLE DATA; Schema: escuela; Owner: postgres
+--
+
+COPY escuela.usuarios (id_usuario, ci_usuario, nom_usuario, ape_usuario, nvl_usuario, cargo_usuario, usuario, pwr_usuario_plain, pwr_usuario_hash, anu_usu) FROM stdin;
+1	6467048	WILLIAM	MARTÍNEZ	1	SUPER USUARIO	WAMM20@GMAIL.COM	\N	$2b$12$gcZ9w8lD6g5s9LjhmauOou6EbT56DuZ7ed/fg0HK91EQxdNBMEUGi	\N
+2	6470582	GUILLERMO	MARTÍNEZ	2	OPERADOR	WAMM20@HOTMAIL.COM	\N	$2b$12$.UGP5VnHkh.WYzERzwJcG.F3ySKF4zBiCz6HmaDqdYcnPT8eACz7q	 
+\.
+
+
+--
+-- TOC entry 3526 (class 0 OID 17502)
+-- Dependencies: 230
+-- Data for Name: usuarios_pwr_plain_backup; Type: TABLE DATA; Schema: escuela; Owner: postgres
+--
+
+COPY escuela.usuarios_pwr_plain_backup (id_usuario, usuario, pwr_usuario_plain, backed_at, nom_usuario, ape_usuario) FROM stdin;
+1	wamm20@gmail.com	W1ll14m#$	2025-12-08 00:56:09.816844-04	\N	\N
+\.
+
+
+--
+-- TOC entry 3540 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: alumnos_id_alumno_seq; Type: SEQUENCE SET; Schema: escuela; Owner: postgres
+--
+
+SELECT pg_catalog.setval('escuela.alumnos_id_alumno_seq', 2, true);
+
+
+--
+-- TOC entry 3541 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: calificaciones_id_calificacion_seq; Type: SEQUENCE SET; Schema: escuela; Owner: postgres
+--
+
+SELECT pg_catalog.setval('escuela.calificaciones_id_calificacion_seq', 1, false);
+
+
+--
+-- TOC entry 3542 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: curso_materia_id_curso_materia_seq; Type: SEQUENCE SET; Schema: escuela; Owner: postgres
+--
+
+SELECT pg_catalog.setval('escuela.curso_materia_id_curso_materia_seq', 7, true);
+
+
+--
+-- TOC entry 3543 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: cursos_id_curso_seq; Type: SEQUENCE SET; Schema: escuela; Owner: postgres
+--
+
+SELECT pg_catalog.setval('escuela.cursos_id_curso_seq', 2, true);
+
+
+--
+-- TOC entry 3544 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: inscripciones_id_inscripcion_seq; Type: SEQUENCE SET; Schema: escuela; Owner: postgres
+--
+
+SELECT pg_catalog.setval('escuela.inscripciones_id_inscripcion_seq', 1, false);
+
+
+--
+-- TOC entry 3545 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: materias_id_materia_seq; Type: SEQUENCE SET; Schema: escuela; Owner: postgres
+--
+
+SELECT pg_catalog.setval('escuela.materias_id_materia_seq', 7, true);
+
+
+--
+-- TOC entry 3546 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: profesores_id_profesor_seq; Type: SEQUENCE SET; Schema: escuela; Owner: postgres
+--
+
+SELECT pg_catalog.setval('escuela.profesores_id_profesor_seq', 6, true);
+
+
+--
+-- TOC entry 3547 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: usuarios_id_usuario_seq; Type: SEQUENCE SET; Schema: escuela; Owner: postgres
+--
+
+SELECT pg_catalog.setval('escuela.usuarios_id_usuario_seq', 2, true);
+
+
+--
+-- TOC entry 3341 (class 2606 OID 17421)
+-- Name: alumnos alumnos_pkey; Type: CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.alumnos
+    ADD CONSTRAINT alumnos_pkey PRIMARY KEY (id_alumno);
+
+
+--
+-- TOC entry 3356 (class 2606 OID 17476)
+-- Name: calificaciones calificaciones_pkey; Type: CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.calificaciones
+    ADD CONSTRAINT calificaciones_pkey PRIMARY KEY (id_calificacion);
+
+
+--
+-- TOC entry 3345 (class 2606 OID 17437)
+-- Name: curso_materia curso_materia_id_curso_id_materia_key; Type: CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.curso_materia
+    ADD CONSTRAINT curso_materia_id_curso_id_materia_key UNIQUE (id_curso, id_materia);
+
+
+--
+-- TOC entry 3347 (class 2606 OID 17435)
+-- Name: curso_materia curso_materia_pkey; Type: CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.curso_materia
+    ADD CONSTRAINT curso_materia_pkey PRIMARY KEY (id_curso_materia);
+
+
+--
+-- TOC entry 3335 (class 2606 OID 17403)
+-- Name: cursos cursos_pkey; Type: CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.cursos
+    ADD CONSTRAINT cursos_pkey PRIMARY KEY (id_curso);
+
+
+--
+-- TOC entry 3354 (class 2606 OID 17459)
+-- Name: inscripciones inscripciones_pkey; Type: CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.inscripciones
+    ADD CONSTRAINT inscripciones_pkey PRIMARY KEY (id_inscripcion);
+
+
+--
+-- TOC entry 3343 (class 2606 OID 17428)
+-- Name: materias materias_pkey; Type: CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.materias
+    ADD CONSTRAINT materias_pkey PRIMARY KEY (id_materia);
+
+
+--
+-- TOC entry 3337 (class 2606 OID 17414)
+-- Name: profesores profesores_email_key; Type: CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.profesores
+    ADD CONSTRAINT profesores_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 3339 (class 2606 OID 17412)
+-- Name: profesores profesores_pkey; Type: CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.profesores
+    ADD CONSTRAINT profesores_pkey PRIMARY KEY (id_profesor);
+
+
+--
+-- TOC entry 3361 (class 2606 OID 17499)
+-- Name: usuarios usuarios_pkey; Type: CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.usuarios
+    ADD CONSTRAINT usuarios_pkey PRIMARY KEY (id_usuario);
+
+
+--
+-- TOC entry 3357 (class 1259 OID 17493)
+-- Name: idx_calificaciones_curso_materia; Type: INDEX; Schema: escuela; Owner: postgres
+--
+
+CREATE INDEX idx_calificaciones_curso_materia ON escuela.calificaciones USING btree (id_curso_materia);
+
+
+--
+-- TOC entry 3358 (class 1259 OID 17492)
+-- Name: idx_calificaciones_inscripcion; Type: INDEX; Schema: escuela; Owner: postgres
+--
+
+CREATE INDEX idx_calificaciones_inscripcion ON escuela.calificaciones USING btree (id_inscripcion);
+
+
+--
+-- TOC entry 3359 (class 1259 OID 17494)
+-- Name: idx_calificaciones_inscripcion_curso_materia; Type: INDEX; Schema: escuela; Owner: postgres
+--
+
+CREATE INDEX idx_calificaciones_inscripcion_curso_materia ON escuela.calificaciones USING btree (id_inscripcion, id_curso_materia);
+
+
+--
+-- TOC entry 3351 (class 1259 OID 17490)
+-- Name: idx_inscripciones_alumno; Type: INDEX; Schema: escuela; Owner: postgres
+--
+
+CREATE INDEX idx_inscripciones_alumno ON escuela.inscripciones USING btree (id_alumno);
+
+
+--
+-- TOC entry 3352 (class 1259 OID 17491)
+-- Name: idx_inscripciones_curso; Type: INDEX; Schema: escuela; Owner: postgres
+--
+
+CREATE INDEX idx_inscripciones_curso ON escuela.inscripciones USING btree (id_curso);
+
+
+--
+-- TOC entry 3348 (class 1259 OID 17487)
+-- Name: idx_materias_curso; Type: INDEX; Schema: escuela; Owner: postgres
+--
+
+CREATE INDEX idx_materias_curso ON escuela.curso_materia USING btree (id_curso);
+
+
+--
+-- TOC entry 3349 (class 1259 OID 17489)
+-- Name: idx_materias_materia; Type: INDEX; Schema: escuela; Owner: postgres
+--
+
+CREATE INDEX idx_materias_materia ON escuela.curso_materia USING btree (id_materia);
+
+
+--
+-- TOC entry 3350 (class 1259 OID 17488)
+-- Name: idx_materias_profesor; Type: INDEX; Schema: escuela; Owner: postgres
+--
+
+CREATE INDEX idx_materias_profesor ON escuela.curso_materia USING btree (id_profesor);
+
+
+--
+-- TOC entry 3367 (class 2606 OID 17482)
+-- Name: calificaciones calificaciones_id_curso_materia_fkey; Type: FK CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.calificaciones
+    ADD CONSTRAINT calificaciones_id_curso_materia_fkey FOREIGN KEY (id_curso_materia) REFERENCES escuela.curso_materia(id_curso_materia);
+
+
+--
+-- TOC entry 3368 (class 2606 OID 17477)
+-- Name: calificaciones calificaciones_id_inscripcion_fkey; Type: FK CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.calificaciones
+    ADD CONSTRAINT calificaciones_id_inscripcion_fkey FOREIGN KEY (id_inscripcion) REFERENCES escuela.inscripciones(id_inscripcion);
+
+
+--
+-- TOC entry 3362 (class 2606 OID 17438)
+-- Name: curso_materia curso_materia_id_curso_fkey; Type: FK CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.curso_materia
+    ADD CONSTRAINT curso_materia_id_curso_fkey FOREIGN KEY (id_curso) REFERENCES escuela.cursos(id_curso);
+
+
+--
+-- TOC entry 3363 (class 2606 OID 17443)
+-- Name: curso_materia curso_materia_id_materia_fkey; Type: FK CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.curso_materia
+    ADD CONSTRAINT curso_materia_id_materia_fkey FOREIGN KEY (id_materia) REFERENCES escuela.materias(id_materia);
+
+
+--
+-- TOC entry 3364 (class 2606 OID 17448)
+-- Name: curso_materia curso_materia_id_profesor_fkey; Type: FK CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.curso_materia
+    ADD CONSTRAINT curso_materia_id_profesor_fkey FOREIGN KEY (id_profesor) REFERENCES escuela.profesores(id_profesor);
+
+
+--
+-- TOC entry 3365 (class 2606 OID 17460)
+-- Name: inscripciones inscripciones_id_alumno_fkey; Type: FK CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.inscripciones
+    ADD CONSTRAINT inscripciones_id_alumno_fkey FOREIGN KEY (id_alumno) REFERENCES escuela.alumnos(id_alumno);
+
+
+--
+-- TOC entry 3366 (class 2606 OID 17465)
+-- Name: inscripciones inscripciones_id_curso_fkey; Type: FK CONSTRAINT; Schema: escuela; Owner: postgres
+--
+
+ALTER TABLE ONLY escuela.inscripciones
+    ADD CONSTRAINT inscripciones_id_curso_fkey FOREIGN KEY (id_curso) REFERENCES escuela.cursos(id_curso);
+
+
+-- Completed on 2026-02-27 20:23:37 -04
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict El3XcP1ZkdjDDhASbbCTRTIxcSn9aSDXU8qsryK0rklBwisqw35zwcoLAHK9izb
+

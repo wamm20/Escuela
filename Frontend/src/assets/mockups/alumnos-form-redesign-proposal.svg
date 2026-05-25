@@ -1,0 +1,122 @@
+<svg width="1600" height="980" viewBox="0 0 1600 980" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="980" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F4F7FB"/>
+      <stop offset="1" stop-color="#EAF0F8"/>
+    </linearGradient>
+    <linearGradient id="hero" x1="240" y1="110" x2="1380" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#11324D"/>
+      <stop offset="0.55" stop-color="#1D4E89"/>
+      <stop offset="1" stop-color="#2A8CFF"/>
+    </linearGradient>
+    <filter id="shadow" x="200" y="70" width="1260" height="820" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="24"/>
+      <feGaussianBlur stdDeviation="20"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.05 0 0 0 0 0.11 0 0 0 0 0.22 0 0 0 0.14 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_1" result="shape"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="980" fill="url(#bg)"/>
+
+  <rect x="0" y="0" width="210" height="980" fill="#0E2438"/>
+  <text x="24" y="40" fill="#EAF4FF" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700">EscuelaAeroP</text>
+  <rect x="18" y="92" width="174" height="54" rx="14" fill="#173754"/>
+  <text x="36" y="126" fill="#FFFFFF" font-size="21" font-family="Arial, Helvetica, sans-serif" font-weight="700">Alumnos</text>
+  <text x="28" y="200" fill="#9BB1C8" font-size="20" font-family="Arial, Helvetica, sans-serif">Profesores</text>
+  <text x="28" y="246" fill="#9BB1C8" font-size="20" font-family="Arial, Helvetica, sans-serif">Cursos</text>
+  <text x="28" y="292" fill="#9BB1C8" font-size="20" font-family="Arial, Helvetica, sans-serif">Materias</text>
+  <text x="28" y="338" fill="#9BB1C8" font-size="20" font-family="Arial, Helvetica, sans-serif">Usuarios</text>
+  <rect x="18" y="892" width="174" height="56" rx="14" fill="#2A8CFF"/>
+  <text x="86" y="927" text-anchor="middle" fill="#FFFFFF" font-size="20" font-family="Arial, Helvetica, sans-serif" font-weight="700">Salir</text>
+
+  <rect x="210" y="0" width="1390" height="86" fill="#FFFFFF"/>
+  <text x="246" y="52" fill="#13314C" font-size="22" font-family="Arial, Helvetica, sans-serif" font-weight="700">WILLIAM MARTINEZ</text>
+  <text x="1510" y="52" text-anchor="end" fill="#5B7088" font-size="18" font-family="Arial, Helvetica, sans-serif">4:16 p. m.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="240" y="110" width="1180" height="740" rx="30" fill="#FFFFFF"/>
+  </g>
+
+  <rect x="240" y="110" width="1180" height="170" rx="30" fill="url(#hero)"/>
+  <text x="290" y="165" fill="#D9E9FF" font-size="16" font-family="Arial, Helvetica, sans-serif" letter-spacing="1.6">REDISENO PROPUESTO</text>
+  <text x="290" y="212" fill="#FFFFFF" font-size="46" font-family="Arial, Helvetica, sans-serif" font-weight="700">Gestion de Alumnos</text>
+  <text x="290" y="248" fill="#D8E6F8" font-size="22" font-family="Arial, Helvetica, sans-serif">Formulario con jerarquia visual, campos agrupados y acciones mas claras.</text>
+
+  <rect x="1090" y="148" width="120" height="94" rx="20" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.2)"/>
+  <text x="1150" y="183" text-anchor="middle" fill="#DDEBFF" font-size="14" font-family="Arial, Helvetica, sans-serif">REGISTROS</text>
+  <text x="1150" y="224" text-anchor="middle" fill="#FFFFFF" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">248</text>
+
+  <rect x="1226" y="148" width="150" height="94" rx="20" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.2)"/>
+  <text x="1301" y="183" text-anchor="middle" fill="#DDEBFF" font-size="14" font-family="Arial, Helvetica, sans-serif">ESTADO</text>
+  <text x="1301" y="224" text-anchor="middle" fill="#FFFFFF" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700">ACTIVOS</text>
+
+  <rect x="290" y="248" width="180" height="44" rx="22" fill="#FFFFFF" fill-opacity="0.16" stroke="#B6D4FF" stroke-opacity="0.38"/>
+  <text x="380" y="276" text-anchor="middle" fill="#FFFFFF" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Formulario Maestro</text>
+
+  <rect x="290" y="314" width="410" height="458" rx="24" fill="#F7FAFE" stroke="#D9E4F2"/>
+  <text x="322" y="358" fill="#12334C" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700">Datos Personales</text>
+  <text x="322" y="388" fill="#6B7E93" font-size="18" font-family="Arial, Helvetica, sans-serif">Campos principales del alumno organizados en bloques.</text>
+
+  <text x="322" y="442" fill="#5F7388" font-size="15" font-family="Arial, Helvetica, sans-serif" font-weight="700">NOMBRE</text>
+  <rect x="322" y="454" width="346" height="58" rx="16" fill="#FFFFFF" stroke="#CBD8E6"/>
+  <text x="344" y="490" fill="#102B44" font-size="20" font-family="Arial, Helvetica, sans-serif">JHONNY</text>
+
+  <text x="322" y="552" fill="#5F7388" font-size="15" font-family="Arial, Helvetica, sans-serif" font-weight="700">APELLIDO</text>
+  <rect x="322" y="564" width="346" height="58" rx="16" fill="#FFFFFF" stroke="#CBD8E6"/>
+  <text x="344" y="600" fill="#102B44" font-size="20" font-family="Arial, Helvetica, sans-serif">MARTINEZ</text>
+
+  <text x="322" y="662" fill="#5F7388" font-size="15" font-family="Arial, Helvetica, sans-serif" font-weight="700">CEDULA</text>
+  <rect x="322" y="674" width="164" height="58" rx="16" fill="#FFFFFF" stroke="#CBD8E6"/>
+  <text x="344" y="710" fill="#102B44" font-size="20" font-family="Arial, Helvetica, sans-serif">6470583</text>
+
+  <text x="504" y="662" fill="#5F7388" font-size="15" font-family="Arial, Helvetica, sans-serif" font-weight="700">TELEFONO</text>
+  <rect x="504" y="674" width="164" height="58" rx="16" fill="#FFFFFF" stroke="#CBD8E6"/>
+  <text x="526" y="710" fill="#102B44" font-size="20" font-family="Arial, Helvetica, sans-serif">0414 2533774</text>
+
+  <rect x="730" y="314" width="640" height="458" rx="24" fill="#FFFFFF" stroke="#D9E4F2"/>
+  <text x="762" y="358" fill="#12334C" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700">Ficha Academica y Contacto</text>
+  <text x="762" y="388" fill="#6B7E93" font-size="18" font-family="Arial, Helvetica, sans-serif">Mas contexto, mejor lectura y acciones visibles al final.</text>
+
+  <text x="762" y="442" fill="#5F7388" font-size="15" font-family="Arial, Helvetica, sans-serif" font-weight="700">FECHA DE NACIMIENTO</text>
+  <rect x="762" y="454" width="250" height="58" rx="16" fill="#F9FBFE" stroke="#CBD8E6"/>
+  <text x="784" y="490" fill="#102B44" font-size="20" font-family="Arial, Helvetica, sans-serif">1959-12-23</text>
+
+  <text x="1032" y="442" fill="#5F7388" font-size="15" font-family="Arial, Helvetica, sans-serif" font-weight="700">EDAD</text>
+  <rect x="1032" y="454" width="130" height="58" rx="16" fill="#F9FBFE" stroke="#CBD8E6"/>
+  <text x="1097" y="490" text-anchor="middle" fill="#102B44" font-size="20" font-family="Arial, Helvetica, sans-serif">66</text>
+
+  <text x="1182" y="442" fill="#5F7388" font-size="15" font-family="Arial, Helvetica, sans-serif" font-weight="700">ESTADO</text>
+  <rect x="1182" y="454" width="156" height="58" rx="16" fill="#EAF8EF" stroke="#B8E2C2"/>
+  <text x="1260" y="490" text-anchor="middle" fill="#1E7A3E" font-size="20" font-family="Arial, Helvetica, sans-serif" font-weight="700">ACTIVO</text>
+
+  <text x="762" y="552" fill="#5F7388" font-size="15" font-family="Arial, Helvetica, sans-serif" font-weight="700">DIRECCION</text>
+  <rect x="762" y="564" width="576" height="112" rx="18" fill="#F9FBFE" stroke="#CBD8E6"/>
+  <text x="784" y="602" fill="#102B44" font-size="20" font-family="Arial, Helvetica, sans-serif">PLAZOLETA EL GUAMACHO CASA #68</text>
+  <text x="784" y="632" fill="#102B44" font-size="20" font-family="Arial, Helvetica, sans-serif">LA GUAIRA, EDO. LA GUAIRA</text>
+
+  <rect x="762" y="706" width="176" height="42" rx="21" fill="#EEF4FC"/>
+  <circle cx="788" cy="727" r="7" fill="#2A8CFF"/>
+  <text x="810" y="733" fill="#20405A" font-size="16" font-family="Arial, Helvetica, sans-serif">Validacion visual</text>
+
+  <rect x="958" y="706" width="170" height="42" rx="21" fill="#FFF3E8"/>
+  <circle cx="984" cy="727" r="7" fill="#FF9F43"/>
+  <text x="1006" y="733" fill="#6A4A21" font-size="16" font-family="Arial, Helvetica, sans-serif">Campos clave</text>
+
+  <rect x="1148" y="706" width="190" height="42" rx="21" fill="#F1ECFF"/>
+  <circle cx="1174" cy="727" r="7" fill="#7A5AF8"/>
+  <text x="1196" y="733" fill="#40338E" font-size="16" font-family="Arial, Helvetica, sans-serif">Acciones limpias</text>
+
+  <rect x="290" y="792" width="1080" height="58" rx="22" fill="#F6F9FD" stroke="#D9E4F2"/>
+  <text x="322" y="828" fill="#6A7D92" font-size="16" font-family="Arial, Helvetica, sans-serif">Pie de formulario con acciones persistentes y lectura mas clara.</text>
+  <rect x="1076" y="804" width="120" height="34" rx="17" fill="#FFFFFF" stroke="#C8D7E7"/>
+  <text x="1136" y="826" text-anchor="middle" fill="#52677D" font-size="16" font-family="Arial, Helvetica, sans-serif" font-weight="700">Cancelar</text>
+  <rect x="1212" y="798" width="130" height="46" rx="23" fill="#2A8CFF"/>
+  <text x="1277" y="827" text-anchor="middle" fill="#FFFFFF" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">Guardar</text>
+
+  <text x="290" y="900" fill="#13314C" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">Concepto visual recomendado</text>
+  <text x="290" y="938" fill="#5E7086" font-size="22" font-family="Arial, Helvetica, sans-serif">Panel superior con contexto, formulario en dos columnas, chips de estado y footer de acciones.</text>
+</svg>

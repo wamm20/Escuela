@@ -1,0 +1,79 @@
+<div class="card-container">
+  <div class="header-actions cursos-materias-header">
+    <div class="header-copy">
+      <div class="header-title-row">
+        <span class="section-badge">Cursos - Materias</span>
+        <button class="btn btn-secondary btn-back" (click)="goToMenu()" title="Volver al menú">
+          🔙
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section class="filter-panel">
+    <div class="panel-header">
+      <h3>Selecciona el curso a revisar</h3>
+    </div>
+
+    <div class="field-group">
+      <label for="curso-selector">Curso</label>
+      <select id="curso-selector" class="form-input form-select" [(ngModel)]="selectedCurso" (ngModelChange)="onCourseChange()">
+        <option [ngValue]="null">-- seleccionar --</option>
+        <option *ngFor="let c of cursos" [ngValue]="c">{{ getCursoLabel(c) }}</option>
+      </select>
+    </div>
+
+    <div class="info-strip" *ngIf="selectedCurso">
+      <div class="info-chip">
+        <span class="info-chip-label">Curso activo</span>
+        <strong>{{ selectedCurso.nombre_curso || 'SIN NOMBRE' }}</strong>
+      </div>
+      <div class="info-chip">
+        <span class="info-chip-label">Año escolar</span>
+        <strong>{{ selectedCurso.anio_escolar || 'N/A' }}</strong>
+      </div>
+      <div class="info-chip">
+        <span class="info-chip-label">Periodo</span>
+        <strong>{{ formatDate(selectedCurso.fecha_inicio) }} - {{ formatDate(selectedCurso.fecha_fin) }}</strong>
+      </div>
+    </div>
+  </section>
+
+  <div *ngIf="selectedCurso" class="table-responsive assignments-table-wrap">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Materia</th>
+          <th>Profesor</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of asignaciones" [class.row-disabled]="a.anu_cur_mat === 'X'">
+          <td>
+            <div class="cell-primary">{{ a.nombre_materia }}</div>
+          </td>
+          <td>{{ a.nombre_profesor || '-' }}</td>
+          <td class="text-center actions-cell">
+            <span class="status-badge" [class.status-inactive]="a.anu_cur_mat === 'X'">
+              {{ a.anu_cur_mat === 'X' ? 'Anulada' : 'Activa' }}
+            </span>
+            <div class="row-actions">
+              <button class="btn-icon delete" (click)="anularFila(a.id_curso_materia)" title="Anular asignación" *ngIf="a.anu_cur_mat !== 'X'">
+                🗑
+              </button>
+              <button class="btn-icon reactivate" (click)="activarFila(a.id_curso_materia)" title="Activar asignación" *ngIf="a.anu_cur_mat === 'X'">
+                ↻
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <section class="empty-state" *ngIf="selectedCurso && asignaciones.length === 0">
+    <h3>Este curso no tiene materias asignadas</h3>
+    <p>Cuando existan asignaciones, se mostrarán aquí con su profesor y estado.</p>
+  </section>
+</div>

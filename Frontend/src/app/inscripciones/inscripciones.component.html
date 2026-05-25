@@ -1,0 +1,68 @@
+<div class="card-container">
+  <div class="header-actions inscripciones-header">
+    <div class="header-copy">
+      <div class="header-title-row">
+        <span class="section-badge">Inscripciones</span>
+        <button class="btn btn-secondary btn-back" (click)="goToMenu()" title="Volver al menú">
+          🔙
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section class="course-panel">
+    <div class="panel-title">Cursos</div>
+    <div class="course-row">
+      <select class="form-input form-select" [(ngModel)]="selectedCurso" (ngModelChange)="onCourseChange()" name="id_curso_inscripcion">
+        <option [ngValue]="null">Seleccione un curso</option>
+        <option *ngFor="let curso of cursos" [ngValue]="curso">{{ getCursoLabel(curso) }}</option>
+      </select>
+    </div>
+  </section>
+
+  <div class="panels-grid" *ngIf="selectedCurso">
+    <section class="selection-panel">
+      <div class="mini-badge">Alumnos</div>
+      <div class="selection-card">
+        <div class="selection-list" *ngIf="disponibles.length > 0; else noDisponibles">
+          <label class="selection-item" *ngFor="let alumno of disponibles">
+            <input type="checkbox" [(ngModel)]="selectedDisponibles[alumno.id_alumno]" [ngModelOptions]="{standalone: true}" />
+            <span class="student-name">{{ alumno.nombre }} {{ alumno.apellido }}</span>
+            <span class="student-meta" *ngIf="alumno.cedula">CI {{ alumno.cedula }}</span>
+          </label>
+        </div>
+        <ng-template #noDisponibles>
+          <div class="empty-note">No hay alumnos disponibles para este curso.</div>
+        </ng-template>
+      </div>
+
+      <div class="panel-actions">
+        <button class="btn btn-primary" (click)="agregarSeleccionados()" [disabled]="!canAgregar">Agregar al curso</button>
+      </div>
+    </section>
+
+    <section class="selection-panel">
+      <div class="mini-badge">Alumnos-Curso</div>
+      <div class="selection-card enrolled-card">
+        <div class="selection-list" *ngIf="inscritos.length > 0; else noInscritos">
+          <label class="selection-item enrolled-item" *ngFor="let item of inscritos" [class.suspended-item]="item.anu_alum === 'X'">
+            <input type="checkbox" [(ngModel)]="selectedInscritos[item.id_inscripcion]" [ngModelOptions]="{standalone: true}" />
+            <span class="student-name">{{ item.nombre }} {{ item.apellido }}</span>
+            <span class="student-meta" *ngIf="item.cedula">CI {{ item.cedula }}</span>
+            <span class="status-chip" [class.status-chip-suspended]="item.anu_alum === 'X'">
+              {{ item.anu_alum === 'X' ? 'Suspendido' : 'Activo' }}
+            </span>
+          </label>
+        </div>
+        <ng-template #noInscritos>
+          <div class="empty-note">Este curso todavía no tiene alumnos inscritos.</div>
+        </ng-template>
+      </div>
+
+      <div class="panel-actions dual-actions">
+        <button class="btn btn-danger" (click)="anularSeleccionados()" [disabled]="!canAnular">Suspender</button>
+        <button class="btn btn-success" (click)="activarSeleccionados()" [disabled]="!canActivar">Activar</button>
+      </div>
+    </section>
+  </div>
+</div>
