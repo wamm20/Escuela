@@ -2,12 +2,18 @@
 
 Este documento define el flujo minimo y seguro para publicar respaldos del proyecto en GitHub sin secretos ni librerias innecesarias.
 
-## Estado actual (2026-05-25)
+## Estado actual (2026-05-26)
 
 - Repositorio remoto activo: `https://github.com/wamm20/Escuela.git`
 - Rama publicada: `main`
-- Commit base de respaldo limpio: `00c7c85`
-- Tag publicado: `v1.0-respaldo-limpio-20260525`
+- Commit base de respaldo limpio: `000ab456`
+- Tag publicado: `v1.1.0-calificaciones-20260526`
+
+## Ultimo hito publicado
+
+- Modulo de calificaciones publicado en backend y frontend.
+- Ajustes operativos en `run-project.sh`.
+- Carga de configuracion de BD preparada para leer desde `.venv/.env` fuera del respaldo.
 
 ## Objetivo
 
