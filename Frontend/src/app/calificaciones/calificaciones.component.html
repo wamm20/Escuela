@@ -1,0 +1,123 @@
+<div class="card-container">
+  <div class="header-actions calificaciones-header">
+    <div class="header-copy">
+      <div class="header-title-row">
+        <span class="section-badge">Calificaciones</span>
+        <button class="btn btn-secondary btn-back" (click)="goToMenu()" title="Volver al menú">
+          🔙
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section class="course-panel">
+    <div class="panel-title">Cursos</div>
+    <div class="course-row">
+      <select class="form-input form-select" [(ngModel)]="selectedCurso" (ngModelChange)="onCursoChange()" name="id_curso_calificacion">
+        <option [ngValue]="null">Seleccione un curso</option>
+        <option *ngFor="let curso of cursos" [ngValue]="curso">{{ getCursoLabel(curso) }}</option>
+      </select>
+    </div>
+  </section>
+
+  <div class="panels-grid" *ngIf="selectedCurso">
+    <section class="selection-panel">
+      <div class="mini-badge">Alumnos Activos</div>
+      <div class="selection-card">
+        <div class="selection-list" *ngIf="alumnos.length > 0; else noAlumnos">
+          <button
+            type="button"
+            class="selection-item selection-button"
+            *ngFor="let alumno of alumnos"
+            [class.selected-item]="selectedInscripcionId === alumno.id_inscripcion"
+            (click)="selectAlumno(alumno.id_inscripcion)">
+            <span class="student-name">{{ alumnoLabel(alumno) }}</span>
+            <span class="student-meta" *ngIf="alumno.cedula">CI {{ alumno.cedula }}</span>
+          </button>
+        </div>
+        <ng-template #noAlumnos>
+          <div class="empty-note">No hay alumnos activos en este curso.</div>
+        </ng-template>
+      </div>
+    </section>
+
+    <section class="selection-panel">
+      <div class="mini-badge">Materias del Curso</div>
+      <div class="selection-card">
+        <div class="selection-list" *ngIf="materias.length > 0; else noMaterias">
+          <button
+            type="button"
+            class="selection-item selection-button"
+            *ngFor="let materia of materias"
+            [class.selected-item]="selectedCursoMateriaId === materia.id_curso_materia"
+            (click)="selectMateria(materia.id_curso_materia)">
+            <span class="student-name">{{ materia.nombre_materia }}</span>
+            <span class="student-meta" *ngIf="materia.nombre_profesor">{{ materia.nombre_profesor }}</span>
+          </button>
+        </div>
+        <ng-template #noMaterias>
+          <div class="empty-note">No hay materias activas para este curso.</div>
+        </ng-template>
+      </div>
+    </section>
+  </div>
+
+  <div class="form-layout" *ngIf="selectedCurso">
+    <section class="form-panel">
+      <div class="mini-badge">Formulario</div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Alumno</label>
+          <input class="form-input" [value]="selectedAlumno ? alumnoLabel(selectedAlumno) : ''" readonly />
+        </div>
+        <div class="form-field">
+          <label>Materia</label>
+          <input class="form-input" [value]="selectedMateria?.nombre_materia || ''" readonly />
+        </div>
+        <div class="form-field">
+          <label>Nota</label>
+          <input class="form-input" type="text" inputmode="decimal" maxlength="5" [(ngModel)]="nota" (ngModelChange)="onNotaChange($event)" name="nota" placeholder="1 - 20" />
+          <small class="field-error" *ngIf="notaError">{{ notaError }}</small>
+        </div>
+        <div class="form-field">
+          <label>Fecha de calificación</label>
+          <input class="form-input" type="date" [(ngModel)]="fechaCalificacion" [max]="maxFechaCalificacion" name="fechaCalificacion" />
+          <small class="field-error" *ngIf="fechaError">{{ fechaError }}</small>
+        </div>
+      </div>
+
+      <div class="panel-actions form-actions">
+        <button class="btn btn-primary" (click)="guardar()" [disabled]="!canSave">
+          {{ currentCalificacionId ? 'Actualizar' : 'Guardar' }} calificación
+        </button>
+      </div>
+    </section>
+
+    <section class="table-panel">
+      <div class="mini-badge">Calificaciones Registradas</div>
+      <div class="table-card" *ngIf="calificaciones.length > 0; else noCalificaciones">
+        <table>
+          <thead>
+            <tr>
+              <th>Alumno</th>
+              <th>Materia</th>
+              <th>Nota</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of calificaciones">
+              <td>{{ item.nombre }} {{ item.apellido }}</td>
+              <td>{{ item.nombre_materia }}</td>
+              <td>{{ item.nota }}</td>
+              <td>{{ formatDate(item.fecha_calificacion) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noCalificaciones>
+        <div class="empty-note">Este curso todavía no tiene calificaciones registradas.</div>
+      </ng-template>
+    </section>
+  </div>
+</div>

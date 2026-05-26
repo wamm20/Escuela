@@ -11,6 +11,7 @@ import { CursosComponent } from './cursos/cursos.component';
 import { CursosMateriasComponent } from './cursos-materias/cursos-materias.component';
 import { ProgramasComponent } from './programas/programas.component';
 import { InscripcionesComponent } from './inscripciones/inscripciones.component';
+import { CalificacionesComponent } from './calificaciones/calificaciones.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: 'menu', component: HomeComponent },
   { path: 'inscripciones', component: InscripcionesComponent },
+  { path: 'calificaciones', component: CalificacionesComponent },
   { path: 'usuarios', component: UsuariosComponent },
   { path: 'alumnos', component: AlumnosComponent },
   { path: 'profesores', component: ProfesoresComponent },

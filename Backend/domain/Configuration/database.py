@@ -4,12 +4,41 @@ import os
 from dotenv import load_dotenv
 import logging
 from contextlib import contextmanager
+from pathlib import Path
 
 # Configuración básica de logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Carga las variables de entorno desde el archivo .env
-load_dotenv()
+CURRENT_FILE = Path(__file__).resolve()
+BACKEND_DIR = CURRENT_FILE.parents[2]
+PROJECT_DIR = BACKEND_DIR.parent
+WORKSPACE_DIR = PROJECT_DIR.parent
+
+
+def load_database_env():
+    env_candidates = [
+        os.getenv("DOTENV_PATH"),
+        WORKSPACE_DIR / ".venv" / ".env",
+        PROJECT_DIR / ".venv" / ".env",
+        PROJECT_DIR / ".venv-backend" / ".env",
+        BACKEND_DIR / ".env",
+        PROJECT_DIR / ".env",
+    ]
+
+    for candidate in env_candidates:
+        if not candidate:
+            continue
+
+        candidate_path = Path(candidate)
+        if candidate_path.is_file():
+            load_dotenv(candidate_path, override=False)
+            logging.info("Variables de entorno cargadas desde %s", candidate_path)
+            return
+
+    load_dotenv(override=False)
+
+
+load_database_env()
 
 # Recoge las credenciales y valida que todas existan
 DB_HOST = os.getenv("DB_HOST")

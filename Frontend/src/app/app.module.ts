@@ -17,9 +17,10 @@ import { CursosComponent } from './cursos/cursos.component';
 import { CursosMateriasComponent } from './cursos-materias/cursos-materias.component';
 import { ProgramasComponent } from './programas/programas.component';
 import { InscripcionesComponent } from './inscripciones/inscripciones.component';
+import { CalificacionesComponent } from './calificaciones/calificaciones.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, SidebarComponent, WelcomeComponent, UsuariosComponent, AlumnosComponent, ProfesoresComponent, MateriasComponent, CursosComponent, CursosMateriasComponent, ProgramasComponent, InscripcionesComponent],
+  declarations: [AppComponent, LoginComponent, HomeComponent, SidebarComponent, WelcomeComponent, UsuariosComponent, AlumnosComponent, ProfesoresComponent, MateriasComponent, CursosComponent, CursosMateriasComponent, ProgramasComponent, InscripcionesComponent, CalificacionesComponent],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]

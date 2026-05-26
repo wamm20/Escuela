@@ -17,6 +17,7 @@ try:
     from .routes.cursos import cursos_bp
     from .routes.programas import programas_bp
     from .routes.inscripciones import inscripciones_bp
+    from .routes.calificaciones import calificaciones_bp
     app.register_blueprint(auth_bp, url_prefix='/api')
     app.register_blueprint(users_bp, url_prefix='/api')
     app.register_blueprint(alumnos_bp, url_prefix='/api')
@@ -25,6 +26,7 @@ try:
     app.register_blueprint(cursos_bp, url_prefix='/api')
     app.register_blueprint(programas_bp, url_prefix='/api')
     app.register_blueprint(inscripciones_bp, url_prefix='/api')
+    app.register_blueprint(calificaciones_bp, url_prefix='/api')
 except Exception as e:
     # Si las rutas faltan, dejamos que el import falle para visibilidad
     app.logger.warning(f"No se pudo cargar un blueprint: {e}")
